@@ -11,11 +11,30 @@ export default class Facebook extends Component {
         picture : ''
     }
 
-    render() {
+    responseFacebook  = response => {
+        console.log(response);
         
+    }    
+    componentClicked = () => console.log('Clicked');
+    
+
+    render() {
+        let fbContent;
+
+        if(this.state.isLoggedIn) {
+            fbContent = null;
+        } else {
+            fbContent = (<FacebookLogin
+                appId="181659849886116"
+                autoLoad={true}
+                fields="name,email,picture"
+                onClick={this.componentClicked}
+                callback={this.responseFacebook} />)
+        } 
+
         return (
             <div>
-                
+                {fbContent}
             </div>
         )
     }
