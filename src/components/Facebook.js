@@ -5,15 +5,21 @@ export default class Facebook extends Component {
 
     state = {
         isLoggedIn : false,
-        userId : '',
+        userID : '',
         name : '',
         email : '',
         picture : ''
     }
 
     responseFacebook  = response => {
-        console.log(response);
-        
+       // console.log(response);
+        this.setState({
+            isLoggedIn : true,
+            userID : response.userID,
+            name : response.name,
+            email : response.email,
+            picture : response.picture.data.url
+        })
     }    
     componentClicked = () => console.log('Clicked');
     
@@ -22,7 +28,18 @@ export default class Facebook extends Component {
         let fbContent;
 
         if(this.state.isLoggedIn) {
-            fbContent = null;
+            fbContent = (
+                <div style={{
+                    width : '400px',
+                    margin : 'auto',
+                    background: 'rgb(144, 143, 143)',
+                    padding : '20px'
+                }}>
+                    <img src={this.state.picture} alt={this.state.name}/>
+                    <h2>Bienvenido {this.state.name}</h2>
+                    <p>Email: {this.state.email}</p>
+                </div>
+            );
         } else {
             fbContent = (<FacebookLogin
                 appId="181659849886116"
